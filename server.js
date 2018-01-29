@@ -1,71 +1,43 @@
-const express = require("express");
-const fs = require("fs");
-const sqlite = require("sql.js");
+const express = require('express');
 
-const filebuffer = fs.readFileSync("db/usda-nnd.sqlite3");
-
-const db = new sqlite.Database(filebuffer);
+const socketIo = require('socket.io');
 
 const app = express();
 
-app.set("port", process.env.PORT || 3001);
+const ioProm = require('express-socket.io');
 
-// Express only serves static assets in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+const server = ioProm.init(app);
 
-const COLUMNS = [
-  "carbohydrate_g",
-  "protein_g",
-  "fa_sat_g",
-  "fa_mono_g",
-  "fa_poly_g",
-  "kcal",
-  "description"
-];
-app.get("/api/food", (req, res) => {
-  const param = req.query.q;
+app.set('port', process.env.PORT || 3001);
 
-  if (!param) {
-    res.json({
-      error: "Missing required parameter `q`"
-    });
-    return;
-  }
-
-  // WARNING: Not for production use! The following statement
-  // is not protected against SQL injections.
-  const r = db.exec(
-    `
-    select ${COLUMNS.join(", ")} from entries
-    where description like '%${param}%'
-    limit 100
-  `
-  );
-
-  if (r[0]) {
-    res.json(
-      r[0].values.map(entry => {
-        const e = {};
-        COLUMNS.forEach((c, idx) => {
-          // combine fat columns
-          if (c.match(/^fa_/)) {
-            e.fat_g = e.fat_g || 0.0;
-            e.fat_g = (parseFloat(e.fat_g, 10) +
-              parseFloat(entry[idx], 10)).toFixed(2);
-          } else {
-            e[c] = entry[idx];
-          }
-        });
-        return e;
-      })
-    );
-  } else {
-    res.json([]);
-  }
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
-app.listen(app.get("port"), () => {
-  console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+app.get('/api/pixel', (req, res) => {
+  // http://localhost:3001/api/pixel/?campaign=BioGaia&tag=BuyNow
+  const campaign = req.query.campaign;
+  const tag = req.query.tag;
+  const body = `${campaign} ${tag}`;
+  console.log(body)
+  res.status(200).send(body);
+});
+
+app.get('/api/feedSub', (req, res) => {
+  console.log("connecting to feed!")
+  res.status(200).send("feed yo");
+});
+
+
+app.listen(app.get('port'), () => {
+  console.log(`Find the API server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
 });

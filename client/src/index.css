@@ -1,13 +1,173 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
+  height: 100%;
 }
-
 .App {
-  margin-top: 7em;
+  padding: 2.5%;
+  text-align: center;
+  background: lightgray;
 }
 
-#food-search {
-  margin-top: 5em;
+.Header {
+  width: 105%;
+  height: 100px;
+  margin-left: -2.5%;
+  margin-top: -2.5%;
+  background: white;
+}
+.logo {
+  margin: 10px;
+}
+.Header p {
+  margin-top: 3px;
+  font-family: Arial, sans-serif;
+}
+
+.Nav {
+  height: 40px;
+  margin: 0;
+  width: 105%;
+  display: flex;
+  background: lightgray;
+  opacity: 0.75;
+  margin-left: -2.5%;
+  text-transform: uppercase;
+}
+.navOption {
+  margin: auto;
+  font-size: 1em;
+  width: 50%;
+  height: 100%;
+  background: white;
+  padding-top: 9px;
+  transition: background-color 1s, color 1s;
+}
+
+.navOption:hover {
+  background: lightgray;
+  color: black;
+  opacity: 1;
+  transition: background-color 1s, color 1s;
+}
+.navSel {
+  background: lightgray;
+}
+
+.Feed {
+  border: 1px solid black;
+  width: 100%;
+  min-height: 500px;
+  overflow: scroll;
+  border-radius: 10px;
+  margin-top: 7px;
+  background: white;
+}
+.Feed h1, .Builder h1 {
+  border-bottom: 2px solid #212121;
+  font-family: Arial, sans-serif;
+  width: 98%;
+  margin: 4px auto;
+}
+
+.feedEl {
+  height: 100px;
+  width: 95%;
+  border: 2px solid #212121;
+  margin: 3px auto;
+  text-align: left;
+  border-radius: 10px;
+  padding: 7px;
+  background: white;
+}
+
+.feedEl h4 {
+  margin-top: 0px;
+  border-bottom: 1px solid #212121;
+  width: 95%;
+}
+
+.led-box {
+  position: absolute;
+  height: 30px;
+  margin-top: 2px;
+  right: 57px;
+}
+
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 1s infinite;
+  -moz-animation: blinkRed 1s infinite;
+  -ms-animation: blinkRed 1s infinite;
+  -o-animation: blinkRed 1s infinite;
+  animation: blinkRed 1s infinite;
+}
+
+.Builder {
+  border: 1px solid black;
+  width: 100%;
+  min-height: 500px;
+  margin-top: 7px;
+  background: white;
+  border-radius: 10px;
+}
+.builderA {
+  width: 95%;
+  margin: 5px auto;
+  height: 450px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.cIn, .tIn, .output {
+  border: 1px solid red;
+}
+.cIn {
+  width: 50%;
+  padding-top: 10%;
+}
+.tIn {
+  width: 50%;
+  padding-top: 10%;
+}
+.output {
+  width: 100%;
+  padding-top: 5%;
+}
+.output p {
+  margin: 0 auto;
+  font-weight: 1000;
+}
+
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-ms-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-o-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
 }
